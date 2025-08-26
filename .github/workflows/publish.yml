@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Docker image tag"
+        required: true
+        default: "manual-latest"
 
 jobs:
   publish:
@@ -25,7 +31,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Set TAG
-        run: echo TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
+        run: echo TAG=${{ github.event.inputs.tag || GITHUB_REF#refs/tags/ }} >> $GITHUB_ENV
 
       - name: Publish Docker Image
         uses: docker/build-push-action@v3
