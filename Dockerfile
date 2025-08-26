@@ -14,6 +14,6 @@ WORKDIR /home/static
 
 COPY  --from=builder /builder/dist/apps/web/  /home/static
 
-EXPOSE 80
+EXPOSE 9999
 
-CMD ["/busybox-httpd", "-f", "-v", "-p", "80", "-c", "httpd.conf"]
+CMD ["/busybox-httpd", "-f", "-v", "-p", "9999", "-c", "httpd.conf"]
